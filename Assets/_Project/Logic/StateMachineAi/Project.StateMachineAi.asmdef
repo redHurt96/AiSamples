@@ -1,0 +1,16 @@
+{
+    "name": "Project.StateMachineAi",
+    "rootNamespace": "",
+    "references": [
+        "GUID:430b94353915f6d45939cafc9473b106"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
