@@ -1,4 +1,7 @@
+using System;
 using System.Linq;
+using _Project.Common.Services;
+using _Project.Common.UI.Spawning;
 using _Project.Logic.Common.Ai;
 using _Project.Logic.Common.Services;
 using _Project.RuleBasedAi.Implementation;
@@ -9,28 +12,49 @@ namespace _Project.Logic.Bootstrap
 {
     public class EntryPoint : MonoBehaviour
     {
+        [SerializeField] private Transform _canvas;
+        [SerializeField] private Transform _windowsCanvas;
+        [SerializeField] private Camera _camera;
+        
         private CharactersRepository _charactersRepository;
         private CharactersFactory _charactersFactory;
         private ActorsRepository _actorsRepository;
         private RuleBasedAiFactory _ruleBasedFactory;
         private StateMachineAiFactory _stateMachineAiFactory;
+        private HealthViewRepository _healthViewRepository;
+        private HealthViewFactory _healthViewFactory;
+        private WindowsSwitcher _windowsSwitcher;
+        private WindowsRepository _windowsRepository;
+        private WindowsFactory _windowsFactory;
+        private Spawner _spawner;
 
-        private void Start()
+        private void Awake()
         {
+            _spawner = new();
+            _windowsRepository = new();
+            _windowsFactory = new(_windowsCanvas, _windowsRepository, _spawner);
+            _windowsSwitcher = new(_windowsFactory);
             _charactersRepository = new();
-            _charactersFactory = new(_charactersRepository);
+            _healthViewRepository = new();
+            _healthViewFactory = new(_healthViewRepository, _canvas, _camera);
+            _charactersFactory = new(_charactersRepository, _healthViewFactory);
             _actorsRepository = new();
             _ruleBasedFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
             _stateMachineAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
+            
+            _windowsFactory.InstallWindowsSwitcher(_windowsSwitcher);
+            
+            _spawner.Register(AiType.RuleBased, _ruleBasedFactory);
+            _spawner.Register(AiType.StateMachine, _stateMachineAiFactory);
         }
+
+        private void Start() => 
+            _windowsSwitcher.Show<Hud>();
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                _ruleBasedFactory.Create();
-            
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-                _stateMachineAiFactory.Create();
+                _spawner.Spawn();
             
             foreach (IAiActor aiActor in _actorsRepository.All.ToArray())
                 aiActor.Update();

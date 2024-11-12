@@ -1,4 +1,5 @@
 using _Project.Common.Ai;
+using _Project.Common.Services;
 using _Project.Logic.Common.Ai;
 using _Project.Logic.Common.Characters;
 using _Project.Logic.Common.Services;
@@ -12,7 +13,7 @@ namespace _Project.StateMachineAi.Implementation
         {
         }
 
-        public override IAiActor CreateAiActor(Character character) =>
+        protected override IAiActor CreateAiActor(Character character) =>
             new StateMachineActor(character.Id,
                 new Idle(), 
                 new IState[]

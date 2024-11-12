@@ -1,6 +1,9 @@
+using System;
+using _Project.Common.Services;
 using _Project.Logic.Common.Ai;
 using _Project.Logic.Common.Characters;
 using _Project.Logic.Common.Services;
+using UniRx;
 
 namespace _Project.Common.Ai
 {
@@ -24,18 +27,24 @@ namespace _Project.Common.Ai
         {
             Character character = CharactersFactory.Create();
             IAiActor aiActor = CreateAiActor(character);
-            
-            character.Died += DisposeAi;
+
+            IDisposable disposable = null;
+            disposable = character.IsAlive
+                .Subscribe(isAlive =>
+                {
+                    if (!isAlive)
+                        DisposeAi();
+                });
             
             ActorsRepository.Register(aiActor);
             
             void DisposeAi()
             {
-                character.Died -= DisposeAi;
                 ActorsRepository.Unregister(aiActor);
+                disposable.Dispose();
             }
         }
 
-        public abstract IAiActor CreateAiActor(Character character);
+        protected abstract IAiActor CreateAiActor(Character character);
     }
 }

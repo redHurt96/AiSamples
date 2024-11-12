@@ -1,27 +1,25 @@
-using System;
-using Sirenix.OdinInspector;
+using UniRx;
 using UnityEngine;
 
-namespace _Project.Logic.Common.Characters
+namespace _Project.Common.Characters.Model
 {
-    internal class Health : MonoBehaviour
+    public class Health : MonoBehaviour
     {
-        public event Action Died;
-        
-        public bool IsAlive => _current > 0f;
-        
-        [SerializeField] private float _max;
-        [SerializeField, ReadOnly] private float _current;
+        public IReadOnlyReactiveProperty<bool> IsAlive;
 
-        private void Start() => 
-            _current = _max;
+        [field:SerializeField] internal float Max { get; private set; }
+        
+        internal IReadOnlyReactiveProperty<float> Current => _current;
+        
+        private ReactiveProperty<float> _current;
 
-        public void TakeDamage(float value)
+        private void Awake()
         {
-            _current = Mathf.Max(_current - value, 0f);
-        
-            if (!IsAlive)
-                Died?.Invoke();
+            _current = new(Max);
+            IsAlive = Current.Select(x => x > 0).ToReadOnlyReactiveProperty();
         }
+
+        public void TakeDamage(float value) => 
+            _current.Value = Mathf.Max(_current.Value - value, 0f);
     }
 }
