@@ -1,4 +1,3 @@
-using System;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine.AI;
 using static UnityEngine.Mathf;
 using static UnityEngine.Time;
 
-namespace _Project.Logic.Common.Characters
+namespace _Project.Common.Characters.Model
 {
     public class Movement : MonoBehaviour
     {
@@ -14,6 +13,7 @@ namespace _Project.Logic.Common.Characters
         
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private float _updatePathCooldown;
+        [SerializeField] private float _speed;
         [SerializeField, ReadOnly] private float _currentCooldown;
 
         private bool InCooldown => _currentCooldown > .1f;
@@ -31,8 +31,15 @@ namespace _Project.Logic.Common.Characters
             if (_navMeshAgent.destination == target || InCooldown)
                 return;
 
+            Enable();
             _navMeshAgent.SetDestination(target);
             _currentCooldown = _updatePathCooldown;
         }
+
+        public void Stop() =>
+            _navMeshAgent.speed = 0f;
+
+        public void Enable() => 
+            _navMeshAgent.speed = _speed;
     }
 }

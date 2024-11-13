@@ -1,8 +1,6 @@
 using System;
+using _Project.Common.Characters.Model;
 using _Project.Common.Services;
-using _Project.Logic.Common.Ai;
-using _Project.Logic.Common.Characters;
-using _Project.Logic.Common.Services;
 using UniRx;
 
 namespace _Project.Common.Ai
@@ -13,7 +11,7 @@ namespace _Project.Common.Ai
         protected readonly ActorsRepository ActorsRepository;
         protected readonly CharactersRepository CharactersRepository;
 
-        public AiFactory(
+        protected AiFactory(
             CharactersFactory charactersFactory, 
             ActorsRepository actorsRepository,
             CharactersRepository charactersRepository)
@@ -23,9 +21,9 @@ namespace _Project.Common.Ai
             CharactersRepository = charactersRepository;
         }
         
-        public void Create()
+        public void Create(int teamId)
         {
-            Character character = CharactersFactory.Create();
+            Character character = CharactersFactory.Create(teamId);
             IAiActor aiActor = CreateAiActor(character);
 
             IDisposable disposable = null;

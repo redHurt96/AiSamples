@@ -1,5 +1,5 @@
-using _Project.Logic.Common.Characters;
-using _Project.Logic.Common.Services;
+using _Project.Common.Characters.Model;
+using _Project.Common.Services;
 using _Project.RuleBasedAi.Core;
 
 namespace _Project.RuleBasedAi.Implementation

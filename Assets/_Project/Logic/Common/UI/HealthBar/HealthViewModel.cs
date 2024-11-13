@@ -1,9 +1,8 @@
 using _Project.Common.Characters.Model;
-using _Project.Logic.Common.Characters;
 using UniRx;
 using UnityEngine;
 
-namespace _Project.Logic.Common.UI
+namespace _Project.Common.UI.HealthBar
 {
     internal class HealthViewModel
     {

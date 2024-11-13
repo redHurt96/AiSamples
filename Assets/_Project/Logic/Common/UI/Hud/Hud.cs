@@ -1,9 +1,9 @@
-using System;
+using _Project.Common.UI.Core;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Common.UI.Spawning
+namespace _Project.Common.UI.Hud
 {
     public class Hud : MonoBehaviour, IWindow
     {

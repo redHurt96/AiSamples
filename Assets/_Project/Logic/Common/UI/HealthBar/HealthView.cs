@@ -1,9 +1,8 @@
-using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Logic.Common.UI
+namespace _Project.Common.UI.HealthBar
 {
     public class HealthView : MonoBehaviour
     {

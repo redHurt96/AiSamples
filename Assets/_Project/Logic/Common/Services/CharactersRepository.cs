@@ -1,10 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using _Project.Logic.Common.Characters;
+using _Project.Common.Characters.Model;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace _Project.Logic.Common.Services
+namespace _Project.Common.Services
 {
     public class CharactersRepository
     {

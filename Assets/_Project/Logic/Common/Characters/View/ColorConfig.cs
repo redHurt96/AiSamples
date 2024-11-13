@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace _Project.Logic.Common.Characters
+namespace _Project.Common.Characters.View
 {
     [Serializable]
     internal class ColorConfig

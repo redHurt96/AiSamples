@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using _Project.Logic.Common.Ai;
+using _Project.Common.Ai;
 
-namespace _Project.Logic.Common.Services
+namespace _Project.Common.Services
 {
     public class ActorsRepository
     {

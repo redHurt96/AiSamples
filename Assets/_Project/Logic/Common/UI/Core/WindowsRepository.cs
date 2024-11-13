@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace _Project.Common.UI.Spawning
+namespace _Project.Common.UI.Core
 {
     public class WindowsRepository
     {

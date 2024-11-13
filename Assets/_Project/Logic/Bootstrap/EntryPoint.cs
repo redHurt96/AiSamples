@@ -1,9 +1,12 @@
 using System;
 using System.Linq;
+using _Project.BehaviorTree.Implementation;
+using _Project.Common.Ai;
 using _Project.Common.Services;
+using _Project.Common.UI.Core;
+using _Project.Common.UI.Hud;
 using _Project.Common.UI.Spawning;
-using _Project.Logic.Common.Ai;
-using _Project.Logic.Common.Services;
+using _Project.Logic.UtilityAi.Implementation;
 using _Project.RuleBasedAi.Implementation;
 using _Project.StateMachineAi.Implementation;
 using UnityEngine;
@@ -27,6 +30,9 @@ namespace _Project.Logic.Bootstrap
         private WindowsRepository _windowsRepository;
         private WindowsFactory _windowsFactory;
         private Spawner _spawner;
+        private BehaviorTreeActorFactory _behaviorTreeAiFactory;
+        private UtilityAiFactory _utilityAiFactory;
+        private FreezeEffectFactory _freezeEffectFactory;
 
         private void Awake()
         {
@@ -36,16 +42,21 @@ namespace _Project.Logic.Bootstrap
             _windowsSwitcher = new(_windowsFactory);
             _charactersRepository = new();
             _healthViewRepository = new();
+            _freezeEffectFactory = new();
             _healthViewFactory = new(_healthViewRepository, _canvas, _camera);
-            _charactersFactory = new(_charactersRepository, _healthViewFactory);
+            _charactersFactory = new(_charactersRepository, _healthViewFactory, _freezeEffectFactory);
             _actorsRepository = new();
             _ruleBasedFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
             _stateMachineAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
+            _behaviorTreeAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
+            _utilityAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
             
             _windowsFactory.InstallWindowsSwitcher(_windowsSwitcher);
             
             _spawner.Register(AiType.RuleBased, _ruleBasedFactory);
             _spawner.Register(AiType.StateMachine, _stateMachineAiFactory);
+            _spawner.Register(AiType.BehaviorTree, _behaviorTreeAiFactory);
+            _spawner.Register(AiType.UtilityAi, _utilityAiFactory);
         }
 
         private void Start() => 
@@ -53,8 +64,7 @@ namespace _Project.Logic.Bootstrap
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                _spawner.Spawn();
+            _spawner.Update();
             
             foreach (IAiActor aiActor in _actorsRepository.All.ToArray())
                 aiActor.Update();

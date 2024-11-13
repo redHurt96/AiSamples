@@ -1,4 +1,4 @@
-namespace _Project.Logic.Common.Ai
+namespace _Project.Common.Ai
 {
     public interface IAiActor
     {

@@ -1,4 +1,4 @@
-using _Project.Logic.Common.Ai;
+using _Project.Common.Ai;
 
 namespace _Project.RuleBasedAi.Core
 {

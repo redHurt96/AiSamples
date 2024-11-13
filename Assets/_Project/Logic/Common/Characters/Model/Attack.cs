@@ -3,7 +3,7 @@ using UnityEngine;
 using static UnityEngine.Mathf;
 using static UnityEngine.Time;
 
-namespace _Project.Logic.Common.Characters
+namespace _Project.Common.Characters.Model
 {
     public class Attack : MonoBehaviour
     {

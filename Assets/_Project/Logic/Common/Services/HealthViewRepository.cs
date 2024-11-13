@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using _Project.Logic.Common.UI;
+using _Project.Common.UI.HealthBar;
 
-namespace _Project.Logic.Common.Services
+namespace _Project.Common.Services
 {
     public class HealthViewRepository
     {

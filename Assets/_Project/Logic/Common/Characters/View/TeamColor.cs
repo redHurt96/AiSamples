@@ -1,7 +1,8 @@
 using System.Linq;
+using _Project.Common.Characters.Model;
 using UnityEngine;
 
-namespace _Project.Logic.Common.Characters
+namespace _Project.Common.Characters.View
 {
     public class TeamColor : MonoBehaviour
     {

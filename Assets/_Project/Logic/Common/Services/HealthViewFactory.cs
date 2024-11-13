@@ -1,14 +1,13 @@
 using System;
 using _Project.Common.Characters.Model;
-using _Project.Logic.Common.Characters;
-using _Project.Logic.Common.UI;
+using _Project.Common.UI.HealthBar;
 using UniRx;
 using UnityEngine;
 using static UnityEngine.Object;
 using static UnityEngine.Quaternion;
 using static UnityEngine.Resources;
 
-namespace _Project.Logic.Common.Services
+namespace _Project.Common.Services
 {
     public class HealthViewFactory
     {

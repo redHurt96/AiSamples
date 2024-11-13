@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using _Project.Common.Ai;
+using _Project.Common.UI.Core;
 using UniRx;
 
 namespace _Project.Common.UI.Spawning
@@ -21,6 +23,6 @@ namespace _Project.Common.UI.Spawning
             _spawner.SetAiType(aiType);
 
         public void SwitchToHud() => 
-            _windowsSwitcher.Show<Hud>();
+            _windowsSwitcher.Show<Hud.Hud>();
     }
 }

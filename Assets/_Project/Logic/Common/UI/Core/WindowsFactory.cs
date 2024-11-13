@@ -1,8 +1,11 @@
+using _Project.Common.Ai;
+using _Project.Common.UI.Hud;
+using _Project.Common.UI.Spawning;
 using UnityEngine;
 using static UnityEngine.Object;
 using static UnityEngine.Resources;
 
-namespace _Project.Common.UI.Spawning
+namespace _Project.Common.UI.Core
 {
     public class WindowsFactory
     {
@@ -27,7 +30,7 @@ namespace _Project.Common.UI.Spawning
             if (_repository.TryGetValue(out T value))
                 return value;
             
-            if (typeof(T) == typeof(Hud))
+            if (typeof(T) == typeof(Hud.Hud))
                 return CreateHud();
             
             if (typeof(T) == typeof(SpawnWindow))
@@ -36,10 +39,10 @@ namespace _Project.Common.UI.Spawning
             throw new($"There is no method for window type {typeof(T).Name}");
         }
 
-        private Hud CreateHud()
+        private Hud.Hud CreateHud()
         {
             HudViewModel viewModel = new(_windowsSwitcher);
-            Hud instance = CreateView<Hud>();
+            Hud.Hud instance = CreateView<Hud.Hud>();
             
             instance.Construct(viewModel);
             return instance;

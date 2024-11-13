@@ -1,5 +1,5 @@
 using System.Linq;
-using _Project.Logic.Common.Ai;
+using _Project.Common.Ai;
 using UnityEngine;
 
 namespace _Project.StateMachineAi.Core

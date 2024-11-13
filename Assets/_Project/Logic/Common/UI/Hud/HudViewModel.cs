@@ -1,4 +1,7 @@
-namespace _Project.Common.UI.Spawning
+using _Project.Common.UI.Core;
+using _Project.Common.UI.Spawning;
+
+namespace _Project.Common.UI.Hud
 {
     public class HudViewModel
     {

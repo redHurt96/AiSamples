@@ -1,4 +1,4 @@
-using _Project.Logic.Common.Characters;
+using _Project.Common.Characters.Model;
 using _Project.StateMachineAi.Core;
 
 namespace _Project.StateMachineAi.Implementation

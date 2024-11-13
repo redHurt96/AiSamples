@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace _Project.Common.UI.Spawning
+namespace _Project.Common.UI.Core
 {
     public interface IWindow
     {

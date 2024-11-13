@@ -1,8 +1,6 @@
 using System;
 using _Project.Common.Characters.Model;
-using _Project.Logic.Common.Characters;
-using _Project.Logic.Common.Services;
-using _Project.Logic.Common.UI;
+using _Project.Common.UI.HealthBar;
 using UniRx;
 using UnityEngine;
 using static UnityEngine.Object;
@@ -20,21 +18,25 @@ namespace _Project.Common.Services
         
         private readonly CharactersRepository _charactersRepository;
         private readonly HealthViewFactory _healthViewFactory;
+        private readonly FreezeEffectFactory _freezeEffectFactory;
 
-        public CharactersFactory(CharactersRepository charactersRepository, HealthViewFactory healthViewFactory)
+        public CharactersFactory(
+            CharactersRepository charactersRepository, 
+            HealthViewFactory healthViewFactory,
+            FreezeEffectFactory freezeEffectFactory)
         {
             _charactersRepository = charactersRepository;
             _healthViewFactory = healthViewFactory;
+            _freezeEffectFactory = freezeEffectFactory;
         }
 
-        internal Character Create()
+        internal Character Create(int teamId)
         {
             Character resourse = Load<Character>("Character");
             Vector3 position = new(RandomDistance, 0f, RandomDistance);
             Character instance = Instantiate(resourse, position, Quaternion.identity);
-            int team = Range(0, 3);
 
-            instance.Construct(team);
+            instance.Construct(teamId);
             _charactersRepository.Register(instance);
             IDisposable disposable = null;
             disposable = instance.IsAlive
@@ -49,6 +51,8 @@ namespace _Project.Common.Services
             _healthViewFactory.Create(
                 instance.GetComponent<Health>(),
                 instance.GetComponentInChildren<HealthViewAnchor>());
+            
+            _freezeEffectFactory.Create(instance, instance.GetComponent<FreezeEffect>());
             
             return instance;
 
