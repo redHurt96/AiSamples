@@ -1,11 +1,10 @@
-using System;
 using System.Linq;
 using _Project.BehaviorTree.Implementation;
 using _Project.Common.Ai;
 using _Project.Common.Services;
 using _Project.Common.UI.Core;
 using _Project.Common.UI.Hud;
-using _Project.Common.UI.Spawning;
+using _Project.Goap.Implementation;
 using _Project.Logic.UtilityAi.Implementation;
 using _Project.RuleBasedAi.Implementation;
 using _Project.StateMachineAi.Implementation;
@@ -33,6 +32,7 @@ namespace _Project.Logic.Bootstrap
         private BehaviorTreeActorFactory _behaviorTreeAiFactory;
         private UtilityAiFactory _utilityAiFactory;
         private FreezeEffectFactory _freezeEffectFactory;
+        private GoapAiFactory _goapAiFactory;
 
         private void Awake()
         {
@@ -50,6 +50,7 @@ namespace _Project.Logic.Bootstrap
             _stateMachineAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
             _behaviorTreeAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
             _utilityAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
+            _goapAiFactory = new(_charactersFactory, _actorsRepository, _charactersRepository);
             
             _windowsFactory.InstallWindowsSwitcher(_windowsSwitcher);
             
@@ -57,6 +58,7 @@ namespace _Project.Logic.Bootstrap
             _spawner.Register(AiType.StateMachine, _stateMachineAiFactory);
             _spawner.Register(AiType.BehaviorTree, _behaviorTreeAiFactory);
             _spawner.Register(AiType.UtilityAi, _utilityAiFactory);
+            _spawner.Register(AiType.GOAP, _goapAiFactory);
         }
 
         private void Start() => 

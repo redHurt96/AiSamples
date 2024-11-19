@@ -19,6 +19,7 @@ namespace _Project.Common.Characters.Model
         public bool InAttackCooldown => _attack.InCooldown;
         public float AttackDistance => _attack.Distance;
         public bool InFreeze => _freezeEffect.InFreeze.Value;
+        public bool IsEnemyDead => HasEnemy && !_enemy.IsAlive.Value;
 
         [SerializeField] private Attack _attack;
         [SerializeField] private Movement _movement;
@@ -46,8 +47,11 @@ namespace _Project.Common.Characters.Model
         public void TakeDamage(float value) => 
             _health.TakeDamage(value);
 
-        public void Freeze(float freezeTime) => 
+        public void Freeze(float freezeTime)
+        {
+            StopMovement();
             _freezeEffect.Execute(freezeTime);
+        }
 
         public void StopMovement() => 
             _movement.Stop();
