@@ -1,28 +1,28 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace _Project.Common.UI.Core
 {
-    public class WindowsSwitcher
+    public abstract class WindowsSwitcher
     {
         private IWindow _current;
         
         private readonly WindowsFactory _windowsFactory;
+        private UniTask _openAnimation;
 
-        public WindowsSwitcher(WindowsFactory windowsFactory)
-        {
+        protected WindowsSwitcher(WindowsFactory windowsFactory) => 
             _windowsFactory = windowsFactory;
-        }
 
-        public void Show<T>() where T : MonoBehaviour, IWindow
+        protected async void Show<TView, TViewModel>() where TView : MonoBehaviour, IWindow<TViewModel>
         {
+            if (_openAnimation.Status is UniTaskStatus.Succeeded)
+                await _openAnimation;
+            
             if (_current != null)
-                _current.Hide();
+                await _current.Hide();
 
-            _current = Get<T>();
-            _current.Show();
+            _current = _windowsFactory.Create<TView, TViewModel>();
+            _openAnimation = _current.Show();
         }
-
-        private IWindow Get<T>() where T : MonoBehaviour, IWindow => 
-            _windowsFactory.Create<T>();
     }
 }

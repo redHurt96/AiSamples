@@ -1,8 +1,14 @@
+using Cysharp.Threading.Tasks;
+
 namespace _Project.Common.UI.Core
 {
+    public interface IWindow<in T> : IWindow
+    {
+        void Setup(T viewModel);
+    }
     public interface IWindow
     {
-        void Show();
-        void Hide();
+        UniTask Show();
+        UniTask Hide();
     }
 }

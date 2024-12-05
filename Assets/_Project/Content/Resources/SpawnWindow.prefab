@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 543724963956371555}
   - component: {fileID: 7562727687731872786}
+  - component: {fileID: 5958663205802528176}
   m_Layer: 5
   m_Name: SpawnWindow
   m_TagString: Untagged
@@ -52,6 +53,20 @@ MonoBehaviour:
   _aiTypeButtonPrefab: {fileID: 4958115541477308175, guid: fbb26404222403c4586143bc9b329823, type: 3}
   _close: {fileID: 6371795746865634063}
   _buttonsParent: {fileID: 7591550541054669929}
+--- !u!114 &5958663205802528176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 258956720002202859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436b51196e14aa24a9144ac7dc51c025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _window: {fileID: 1901389318593639752}
+  _duration: 0.5
 --- !u!1 &757564172215546626
 GameObject:
   m_ObjectHideFlags: 0

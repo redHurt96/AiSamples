@@ -12,6 +12,10 @@ namespace _Project.Common.Services
 {
     public class CharactersFactory
     {
+        public ISubject<Character> Created => _created;
+        
+        private readonly Subject<Character> _created = new();
+
         private const float SPAWN_DISTANCE = 20f;
 
         private float RandomDistance => Range(-SPAWN_DISTANCE, SPAWN_DISTANCE);
@@ -53,6 +57,8 @@ namespace _Project.Common.Services
                 instance.GetComponentInChildren<HealthViewAnchor>());
             
             _freezeEffectFactory.Create(instance, instance.GetComponent<FreezeEffect>());
+            
+            Created.OnNext(instance);
             
             return instance;
 

@@ -1,4 +1,5 @@
 using System;
+using _Project.Common.Services;
 using UniRx;
 using UnityEngine;
 using static UnityEngine.Mathf;
@@ -8,6 +9,8 @@ namespace _Project.Common.Characters.Model
 {
     public class Character : MonoBehaviour
     {
+        public ISubject<KillEventData> OnKill => _onKill;
+        
         public float DistanceToEnemySqr => SqrMagnitude(Position - _enemy.Position);
         public string Id = Guid.NewGuid().ToString();
         public bool HasEnemy => _enemy != null && _enemy.IsAlive.Value;
@@ -28,6 +31,8 @@ namespace _Project.Common.Characters.Model
         [SerializeField] private FreezeEffect _freezeEffect;
         
         private Character _enemy;
+        
+        private readonly Subject<KillEventData> _onKill = new();
 
         public void Construct(int team) => 
             Team = team;
@@ -42,6 +47,9 @@ namespace _Project.Common.Characters.Model
         {
             _attack.Execute(_enemy);
             _freeze.TryFreeze(_enemy);
+            
+            if (!_enemy.IsAlive.Value)
+                _onKill.OnNext(new(Team));
         }
 
         public void TakeDamage(float value) => 
